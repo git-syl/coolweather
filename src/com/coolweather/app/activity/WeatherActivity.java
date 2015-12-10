@@ -2,6 +2,7 @@ package com.coolweather.app.activity;
 
 import com.coolweather.app.R.id;
 import com.coolweather.app.R.layout;
+import com.coolweather.app.service.AutoUpdateService;
 import com.coolweather.app.util.HttpCallbackListener;
 import com.coolweather.app.util.HttpUtil;
 import com.coolweather.app.util.Utility;
@@ -19,6 +20,8 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import net.youmi.android.banner.AdSize;
+import net.youmi.android.banner.AdView;
 
 public class WeatherActivity extends Activity implements OnClickListener {
 	
@@ -73,19 +76,26 @@ public class WeatherActivity extends Activity implements OnClickListener {
 		
 		}
 		
+		AdView adview = new AdView(this,AdSize.FIT_SCREEN);
+		LinearLayout adLayout = (LinearLayout) findViewById(id.adLayout);
+		adLayout.addView(adview);
+		
 	}
 
 	private void showWeather() {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		cityNameText.setText(prefs.getString("city_name", ""));
-		temp1Text.setText(prefs.getString("temp1", ""));
-		temp2Text.setText(prefs.getString("temp2", ""));
+		temp2Text.setText(prefs.getString("temp1", ""));
+		temp1Text.setText(prefs.getString("temp2", ""));
 		Log.e("WeatherActivity", prefs.getString("temp1", "")+"ISN");
 		weatherDespText.setText(prefs.getString("weather_desp", ""));
 		publishText.setText("今天"+prefs.getString("publish_time", "")+"发布");
 		currentDateText.setText(prefs.getString("current_date", ""));
 		weatherInfoLayout.setVisibility(View.VISIBLE);
 		cityNameText.setVisibility(View.VISIBLE);
+		
+		Intent intent = new Intent(this,AutoUpdateService.class);
+		startService(intent);
 		
 	}
 //查询县级代号对应的天气代号

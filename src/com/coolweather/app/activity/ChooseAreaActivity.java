@@ -31,6 +31,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import net.youmi.android.AdManager;
 
 public class ChooseAreaActivity extends Activity {
 	public static final int LEVEL_PROVINCE = 0;
@@ -64,6 +65,7 @@ public class ChooseAreaActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO 自动生成的方法存根
 		super.onCreate(savedInstanceState);
+		AdManager.getInstance(this).init("2f8377f850822ecc", "776e2d96501506ca",false);
 		
 		isFromWeatherActivity = getIntent().getBooleanExtra("from_weather_activity", false);
 		
@@ -207,6 +209,11 @@ public class ChooseAreaActivity extends Activity {
 	            	Log.e("Main", result+"C2");
 	           
 	            }
+	            /*
+	             * git add . 
+	             * git commit -m "新增切换城市和手动更新的功能"
+	             * git push origin master
+	             * */
 	            
 	            if(result){
 	            	//通过runOnUiThread回到主线程处理逻辑
